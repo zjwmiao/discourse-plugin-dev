@@ -52,4 +52,20 @@ export function reportNavigationClick() {
         );
     }
   );
+
+  onNodeInserted(
+    "#navigation-bar",
+    (node) => {
+      window
+        .$(node)
+        .children()
+        .on("click", (ev) =>
+          window._oaReport("click", {
+            target: ev.currentTarget.textContent.trim(),
+            module: "navigation",
+            $url: location.href,
+          })
+        );
+    }
+  );
 }

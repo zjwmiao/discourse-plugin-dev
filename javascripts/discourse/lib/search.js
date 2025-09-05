@@ -63,7 +63,7 @@ export default function reportSearch() {
   onNodeInserted(
     ".search-input-wrapper input",
     (node) => {
-      window.$(node).on("click", onClickSearchInput);
+      window.$(node).on("focus", onClickSearchInput);
       window.$(node).on("input", debounce(onInputSearchInput, 300));
       window.$(node).on("keydown", (ev) => {
         if (ev.key === "Enter") {
