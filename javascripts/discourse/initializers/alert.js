@@ -162,6 +162,21 @@ export default {
         });
       }
 
+      let enterTime = Date.now();
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          enterTime = Date.now();
+        } else {
+          oaReport(
+            'leaveForum',
+            {
+              time: Date.now() - enterTime,
+              $url: location.href
+            }
+          );
+        }
+      });
+
       listenCookieSet();
       listenHistoryChange();
       reportPV();

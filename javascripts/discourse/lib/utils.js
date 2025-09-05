@@ -28,9 +28,10 @@ const seqGenerator = (function* () {
 /**
  * @param {string} selector css selector
  * @param {(HTMLElement) => void} callback callback
+ * @param {boolean} once
  * @returns cancel function
  */
-export function onNodeInserted(selector, callback) {
+export function onNodeInserted(selector, callback, once) {
   const css = document.createElement("style");
   const detectorName = `__nodeInserted_${seqGenerator.next().value}`;
   css.innerHTML =
@@ -41,6 +42,10 @@ export function onNodeInserted(selector, callback) {
   const handler = (event) => {
     if (event.animationName === detectorName) {
       event.stopImmediatePropagation();
+      if (once) {
+        document.head.removeChild(css);
+        document.removeEventListener("animationstart", handler);
+      }
       callback(event.target);
     }
   };
