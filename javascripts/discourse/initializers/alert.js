@@ -23,7 +23,7 @@ export default {
             disableOA();
             return;
           }
-          fetch("https://dsapi.test.osinfra.cn/query/track/openeuler", {
+          fetch("/api-dsapi/query/track/openeuler", {
             body: JSON.stringify(data),
             method: "POST",
             headers: { "Content-Type": "application/json" },
